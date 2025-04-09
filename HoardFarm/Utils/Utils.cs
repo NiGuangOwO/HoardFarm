@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Memory;
 using Dalamud.Utility;
@@ -13,6 +9,10 @@ using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using HoardFarm.Model;
 using Lumina.Excel.Sheets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 
 namespace HoardFarm.Utils;
 
@@ -27,7 +27,7 @@ public static class Utils
     public static bool InHoH => Player.Territory == HoHMapId11 || Player.Territory == HoHMapId21;
     public static bool InRubySea => Player.Territory == RubySeaMapId;
 
-    public static unsafe bool IsMoving() => AgentMap.Instance()->IsPlayerMoving;
+    public static unsafe bool IsMoving() => AgentMap.Instance()->IsPlayerMoving == 1;
 
     public static float Distance(this Vector3 v, Vector3 v2)
     {
@@ -45,7 +45,8 @@ public static class Utils
         var target = TargetSystem.Instance()->Target;
 
         if (occupied && Svc.Condition[ConditionFlag.OccupiedInQuestEvent] && target != null &&
-            target->BaseId == KyuseiDataId) occupied = false;
+            target->BaseId == KyuseiDataId)
+            occupied = false;
 
         return Player.Available
                && Player.Object.CastActionId == 0
@@ -57,17 +58,20 @@ public static class Utils
 
     public static unsafe AtkResNode* GetNodeByIDChain(AtkResNode* node, params uint[] ids)
     {
-        if (node == null || ids.Length <= 0) return null;
+        if (node == null || ids.Length <= 0)
+            return null;
 
         if (node->NodeId == ids[0])
         {
-            if (ids.Length == 1) return node;
+            if (ids.Length == 1)
+                return node;
 
             var newList = new List<uint>(ids);
             newList.RemoveAt(0);
 
             var childNode = node->ChildNode;
-            if (childNode != null) return GetNodeByIDChain(childNode, newList.ToArray());
+            if (childNode != null)
+                return GetNodeByIDChain(childNode, newList.ToArray());
 
             if ((int)node->Type >= 1000)
             {
@@ -97,7 +101,8 @@ public static class Utils
                 {
                     var textNode = addon->UldManager.NodeList[15]->GetAsAtkTextNode();
                     var text = MemoryHelper.ReadSeString(&textNode->NodeText).ExtractText().Replace(" ", "");
-                    if (text.EqualsAny(s) || text.ContainsAny(s)) return addon;
+                    if (text.EqualsAny(s) || text.ContainsAny(s))
+                        return addon;
                     {
                         return addon;
                     }

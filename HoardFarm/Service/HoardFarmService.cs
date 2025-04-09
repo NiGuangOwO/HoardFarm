@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
@@ -15,13 +11,17 @@ using HoardFarm.Model;
 using HoardFarm.Tasks;
 using HoardFarm.Tasks.TaskGroups;
 using Lumina.Excel.Sheets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 
 namespace HoardFarm.Service;
 
 public class HoardFarmService : IDisposable
 {
     private record MapObject(uint ObjectId, uint DataId, Vector3 Position);
-    
+
     public string HoardModeStatus = "";
     public string HoardModeError = "";
     private bool hoardModeActive;
@@ -51,12 +51,12 @@ public class HoardFarmService : IDisposable
         hoardFoundMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7274).Text.ToDalamudString().ExtractText();
         senseHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7272).Text.ToDalamudString().ExtractText();
         noHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7273).Text.ToDalamudString().ExtractText();
-        
+
         ClientState.TerritoryChanged += OnMapChange;
-        
+
         Framework.Update += OnTick;
     }
-    
+
     public bool HoardMode
     {
         get => hoardModeActive;
@@ -95,7 +95,7 @@ public class HoardFarmService : IDisposable
         SessionRuns = 0;
         SessionFoundHoards = 0;
         running = true;
-        HoardModeStatus = "Running";
+        HoardModeStatus = "运行中";
         HoardModeError = "";
         ChatGui.ChatMessage += OnChatMessage;
     }
@@ -117,9 +117,10 @@ public class HoardFarmService : IDisposable
 
     private unsafe bool SearchLogic()
     {
-        HoardModeStatus = "Searching";
+        HoardModeStatus = "搜索中";
 
-        if (!TaskManager.IsBusy) {
+        if (!TaskManager.IsBusy)
+        {
             if (!objectPositions.Where(e => !visitedObjectIds.Contains(e.Value.ObjectId))
                                 .Where(e => ChestIDs.Contains(e.Value.DataId))
                                 .OrderBy(e => e.Value.Position.Distance(Player.Position))
@@ -132,11 +133,11 @@ public class HoardFarmService : IDisposable
                                     .TryGetFirst(out next))
                 {
                     // We should never reach here normally .. but "never" is still a chance > 0% ;)
-                    LeaveDuty("Unreachable");
+                    LeaveDuty("无法到达");
                     return true;
                 }
             }
-            
+
             visitedObjectIds.Add(next!.ObjectId);
             Enqueue(new PathfindTask(next.Position, true), 60 * 1000, "Searching " + next.ObjectId);
         }
@@ -156,32 +157,32 @@ public class HoardFarmService : IDisposable
     {
         if (!running || DateTime.Now - lastTick < TimeSpan.FromSeconds(1))
             return;
-        
+
         lastTick = DateTime.Now;
-        
+
         // Retainer do not increase runtime
         if (RetainerScv.Running)
         {
-            HoardModeStatus = "Retainer Running";
+            HoardModeStatus = "正在收雇员";
             return;
         }
 
         SessionTime++;
         Config.OverallTime++;
-        
+
         if (!NavmeshIPC.NavIsReady())
         {
-            HoardModeStatus = "Waiting Navmesh";
+            HoardModeStatus = "等待Navmesh";
             return;
-        }      
+        }
 
         UpdateObjectPositions();
         SafetyChecks();
-        
+
         if (searchMode && hoardPosition == Vector3.Zero)
             if (!SearchLogic())
                 return;
-        
+
         if (!TaskManager.IsBusy && hoardModeActive)
         {
             if (CheckDone() && !FinishRun)
@@ -191,23 +192,23 @@ public class HoardFarmService : IDisposable
             }
             if (Player.Territory == HoHMapId1)
             {
-                Error("Please prepare before starting.\nFloor One is not supported.");
+                Error("开始前请做好准备。\n第一层是不受支持的。");
                 return;
             }
             if (!InHoH && !InRubySea && NotBusy() && !KyuseiInteractable())
             {
-                HoardModeStatus = "Moving to HoH";
+                HoardModeStatus = "移动至天之御柱";
                 Enqueue(new MoveToHoHTask());
                 EnqueueWait(1000);
             }
-            
+
             if (InRubySea && NotBusy() && KyuseiInteractable())
             {
                 if (FinishRun)
                 {
-                    HoardModeStatus = "Finished";
+                    HoardModeStatus = "完成";
                     HoardMode = false;
-                    return; 
+                    return;
                 }
 
                 if (CheckRetainer())
@@ -215,8 +216,8 @@ public class HoardFarmService : IDisposable
                     // Do retainers first
                     return;
                 }
-                
-                HoardModeStatus = "Entering HoH";
+
+                HoardModeStatus = "正在进入天之御柱";
                 if (Config.ParanoidMode)
                 {
                     EnqueueWait(Random.Shared.Next(3000, 6000));
@@ -234,7 +235,7 @@ public class HoardFarmService : IDisposable
                             "Please prepare before starting.\nYou need at least one Intuition Pomander\nand one Concealment.");
                         return;
                     }
-                    
+
                     if (CanUsePomander(Pomander.Intuition))
                     {
                         Enqueue(new UsePomanderTask(Pomander.Intuition), "Use Intuition");
@@ -246,7 +247,7 @@ public class HoardFarmService : IDisposable
                     if (hoardAvailable)
                     {
                         FindHoardPosition();
-                        
+
                         if (hoardPosition != Vector3.Zero)
                         {
                             if (!movingToHoard)
@@ -257,7 +258,7 @@ public class HoardFarmService : IDisposable
                                 // }
                                 Enqueue(new PathfindTask(hoardPosition, true, 1.5f), 60 * 1000, "Move to Hoard");
                                 movingToHoard = true;
-                                HoardModeStatus = "Move to Hoard";
+                                HoardModeStatus = "移动至宝藏";
                             }
                         }
                         else
@@ -297,32 +298,33 @@ public class HoardFarmService : IDisposable
             {
                 TaskManager.Abort();
                 NavmeshIPC.PathStop();
-                LeaveDuty("Timeout");
+                LeaveDuty("超时");
                 return;
             }
-            
+
             if (IsMoving())
             {
                 if (!Concealment)
                 {
-                   if (CanUsePomander(Pomander.Concealment)) 
-                   {
-                       if (EzThrottler.Check("Concealment"))
-                       {
-                           EzThrottler.Throttle("Concealment", 2000);
-                           new UsePomanderTask(Pomander.Concealment, false).Run();
-                           return; // start next iteration
-                       }
-                   } else if (CanUsePomander(Pomander.Safety) && !safetyUsed && EzThrottler.Check("Concealment"))
-                   {
-                       if (EzThrottler.Check("Safety"))
-                       {
-                           EzThrottler.Throttle("Safety", 2000);
-                           new UsePomanderTask(Pomander.Safety, false).Run();
-                           safetyUsed = true;
-                           return; // start next iteration
-                       }
-                   }
+                    if (CanUsePomander(Pomander.Concealment))
+                    {
+                        if (EzThrottler.Check("Concealment"))
+                        {
+                            EzThrottler.Throttle("Concealment", 2000);
+                            new UsePomanderTask(Pomander.Concealment, false).Run();
+                            return; // start next iteration
+                        }
+                    }
+                    else if (CanUsePomander(Pomander.Safety) && !safetyUsed && EzThrottler.Check("Concealment"))
+                    {
+                        if (EzThrottler.Check("Safety"))
+                        {
+                            EzThrottler.Throttle("Safety", 2000);
+                            new UsePomanderTask(Pomander.Safety, false).Run();
+                            safetyUsed = true;
+                            return; // start next iteration
+                        }
+                    }
                 }
             }
 
@@ -334,10 +336,10 @@ public class HoardFarmService : IDisposable
                     new UseMagiciteTask().Run();
                 }
             }
-            
+
             if (Svc.Condition[ConditionFlag.Unconscious])
             {
-                LeaveDuty("Player died");
+                LeaveDuty("玩家死亡");
             }
         }
     }
@@ -350,8 +352,8 @@ public class HoardFarmService : IDisposable
 
     private bool CheckRetainer()
     {
-        if (Config.DoRetainers 
-            && RetainerService.CheckRetainersDone(Config.RetainerMode == 1) 
+        if (Config.DoRetainers
+            && RetainerService.CheckRetainersDone(Config.RetainerMode == 1)
             && RetainerScv.CanRunRetainer())
         {
             RetainerScv.StartProcess();
@@ -385,7 +387,7 @@ public class HoardFarmService : IDisposable
 
     private void Error(string message)
     {
-        HoardModeStatus = "Error";
+        HoardModeStatus = "错误";
         HoardModeError = message;
         FinishRun = true;
         Enqueue(new LeaveDutyTask());
@@ -393,7 +395,7 @@ public class HoardFarmService : IDisposable
 
     private void FindHoardPosition()
     {
-        if (hoardPosition == Vector3.Zero && 
+        if (hoardPosition == Vector3.Zero &&
             ObjectTable.TryGetFirst(gameObject => gameObject.DataId == AccursedHoardId, out var hoard))
         {
             hoardPosition = hoard.Position;
@@ -425,7 +427,7 @@ public class HoardFarmService : IDisposable
         if (territoryType is HoHMapId11 or HoHMapId21)
         {
             Reset();
-            HoardModeStatus = "Waiting";
+            HoardModeStatus = "等待中";
         }
     }
 
@@ -436,17 +438,17 @@ public class HoardFarmService : IDisposable
         {
             intuitionUsed = true;
             hoardAvailable = true;
-            HoardModeStatus = "Hoard Found";
+            HoardModeStatus = "发现宝藏";
         }
-        
+
         if (noHoardMessage.Equals(message.TextValue))
         {
             intuitionUsed = true;
             hoardAvailable = false;
             TaskManager.Abort();
-            LeaveDuty("No Hoard");
+            LeaveDuty("没有宝藏");
         }
-        
+
         if (hoardFoundMessage.Equals(message.TextValue))
         {
             hoardFound = true;
@@ -454,8 +456,8 @@ public class HoardFarmService : IDisposable
             Config.OverallFoundHoards++;
             Achievements.Progress++;
             TaskManager.Abort();
-            LeaveDuty("Done");
+            LeaveDuty("已完成");
         }
     }
-    
+
 }

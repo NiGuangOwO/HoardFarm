@@ -1,21 +1,21 @@
-﻿using System.Diagnostics;
 using Dalamud.Interface;
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
+using System.Diagnostics;
 
 namespace HoardFarm.Windows;
 
-public class ConfigWindow() : Window("Hoard Farm Config", ImGuiWindowFlags.AlwaysAutoResize)
+public class ConfigWindow() : Window("Hoard Farm 配置", ImGuiWindowFlags.AlwaysAutoResize)
 {
     public override void Draw()
     {
-        ImGui.Text("Actually no really much to configure here.");
-        ImGui.Text("Wanna support me? Buy me a coffee!");
+        ImGui.Text("实际上这里不需要配置太多。");
+        ImGui.Text("想支持我吗？请我喝杯咖啡！");
         ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
         ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
         ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
 
-        if (ImGui.Button("Support on Ko-fi"))
+        if (ImGui.Button("Ko-fi 支持"))
             Process.Start(new ProcessStartInfo
             {
                 FileName = "https://ko-fi.com/jukkales",
@@ -25,19 +25,19 @@ public class ConfigWindow() : Window("Hoard Farm Config", ImGuiWindowFlags.Alway
         ImGui.PopStyleColor(3);
         ImGui.Spacing();
         ImGui.Separator();
-        if (ImGui.Button("Reset Statistics"))
+        if (ImGui.Button("重置统计数据"))
         {
             Config.OverallRuns = 0;
             Config.OverallFoundHoards = 0;
             Config.OverallTime = 0;
             Config.Save();
         }
-        
-        if (ImGui.Checkbox("Show \"Open Hoardfarm\"-Overlay", ref Config.ShowOverlay))
+
+        if (ImGui.Checkbox("显示“打开 Hoardfarm”悬浮窗", ref Config.ShowOverlay))
         {
             Config.Save();
         }
-        if (ImGui.Checkbox("Paranoid mode", ref Config.ParanoidMode))
+        if (ImGui.Checkbox("偏执模式", ref Config.ParanoidMode))
         {
             Config.Save();
         }
@@ -47,8 +47,8 @@ public class ConfigWindow() : Window("Hoard Farm Config", ImGuiWindowFlags.Alway
         ImGui.PopFont();
         if (ImGui.IsItemHovered())
         {
-            ImGui.SetTooltip("Paranoid mode will wait some seconds before requeue again.\n" +
-                             "Not really necessary, but makes some people feel better.");
+            ImGui.SetTooltip("偏执模式将等待几秒钟后再重新排队。\n" +
+                             "这并不是必需的，但会让一些人感觉更好。");
         }
     }
 }

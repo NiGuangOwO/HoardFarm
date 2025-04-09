@@ -1,7 +1,7 @@
-﻿using System.Numerics;
 using Dalamud.Interface.Windowing;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using ImGuiNET;
+using System.Numerics;
 
 namespace HoardFarm.Windows;
 
@@ -13,17 +13,18 @@ public class DeepDungeonMenuOverlay : Window
         RespectCloseHotkey = false;
         IsOpen = true;
     }
-    
+
     public override unsafe bool DrawConditions()
     {
-        if (!InRubySea || !KyuseiInteractable() || !Config.ShowOverlay) return false;
+        if (!InRubySea || !KyuseiInteractable() || !Config.ShowOverlay)
+            return false;
         if (TryGetAddonByName<AtkUnitBase>("DeepDungeonMenu", out var menu) && IsAddonReady(menu))
         {
             var width = menu->GetRootNode()->Width * menu->GetRootNode()->GetScaleX();
             Position = new Vector2(menu->X + width - 125, menu->Y - 40);
             return true;
         }
-        
+
         if (TryGetAddonByName<AtkUnitBase>("DeepDungeonSaveData", out var save) && IsAddonReady(save))
         {
             var width = save->GetRootNode()->Width * save->GetRootNode()->GetScaleX();
@@ -32,10 +33,10 @@ public class DeepDungeonMenuOverlay : Window
         }
         return false;
     }
-    
+
     public override void Draw()
     {
-        if (ImGui.Button("Open Hoardfarm"))
+        if (ImGui.Button("打开 Hoardfarm"))
         {
             P.ShowMainWindow();
         }
