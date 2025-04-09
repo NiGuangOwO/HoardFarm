@@ -1,5 +1,3 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using AutoRetainerAPI;
 using Dalamud.Game;
 using Dalamud.Interface.Windowing;
@@ -12,6 +10,8 @@ using HoardFarm.IPC;
 using HoardFarm.Model;
 using HoardFarm.Service;
 using HoardFarm.Windows;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace HoardFarm;
 
@@ -32,7 +32,10 @@ public sealed class HoardFarm : IDalamudPlugin
     {
         pluginInterface?.Create<PluginService>();
         P = this;
-
+#if RELEASE
+        if (PluginInterface.IsDev)
+            return;
+#endif
         ECommonsMain.Init(pluginInterface, this, Module.DalamudReflector);
         DalamudReflector.RegisterOnInstalledPluginsChangedEvents(() =>
         {
@@ -71,11 +74,11 @@ public sealed class HoardFarm : IDalamudPlugin
 
 
         EzCmd.Add("/hoardfarm", (_, args) => OnCommand(args),
-                  "Opens the Hoard Farm window.\n" +
-                  "/hoardfarm config | c → Open the config window.\n" +
-                  "/hoardfarm enable | e → Enable farming mode.\n" +
-                  "/hoardfarm disable | d → Disable farming mode.\n" +
-                  "/hoardfarm toggle | t → Toggle farming mode.\n"
+                  "打开Hoard Farm窗口。\n" +
+                  "/hoardfarm config | c → 打开配置窗口。\n" +
+                  "/hoardfarm enable | e → 启用伐木模式。\n" +
+                  "/hoardfarm disable | d → 禁用伐木模式。\n" +
+                  "/hoardfarm toggle | t → 切换伐木模式。\n"
         );
 
         CultureInfo.DefaultThreadCurrentUICulture = ClientState.ClientLanguage switch
@@ -89,6 +92,10 @@ public sealed class HoardFarm : IDalamudPlugin
 
     public void Dispose()
     {
+#if RELEASE
+        if (PluginInterface.IsDev)
+            return;
+#endif
         WindowSystem.RemoveAllWindows();
         hoardFarmService.Dispose();
 
@@ -126,7 +133,8 @@ public sealed class HoardFarm : IDalamudPlugin
                 return;
             case "d":
             case "disable":
-                if (HoardService.HoardMode) HoardService.FinishRun = true;
+                if (HoardService.HoardMode)
+                    HoardService.FinishRun = true;
                 return;
             case "t":
             case "toggle":
