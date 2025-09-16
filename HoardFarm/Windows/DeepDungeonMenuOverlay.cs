@@ -1,6 +1,7 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Windowing;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using Dalamud.Bindings.ImGui;
+using System.Numerics;
 
 namespace HoardFarm.Windows;
 

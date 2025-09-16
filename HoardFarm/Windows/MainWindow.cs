@@ -1,9 +1,12 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 using HoardFarm.IPC;
 using HoardFarm.Model;
-using Dalamud.Bindings.ImGui;
+using System;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace HoardFarm.Windows;
 
