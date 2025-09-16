@@ -3,10 +3,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 using HoardFarm.IPC;
 using HoardFarm.Model;
-using ImGuiNET;
-using System;
-using System.Diagnostics;
-using System.Numerics;
+using Dalamud.Bindings.ImGui;
 
 namespace HoardFarm.Windows;
 

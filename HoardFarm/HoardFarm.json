@@ -5,6 +5,7 @@
     "Description": "帮助您伐木深层迷宫宝藏的插件（...为您）",
     "InternalName": "HoardFarm",
     "ApplicableVersion": "any",
+    "DalamudApiLevel": 13,
     "Tags": [
         "hoard",
         "farm",
