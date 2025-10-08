@@ -196,7 +196,7 @@ public class MainWindow : Window
         ImGui.EndGroup();
         ImGui.Separator();
 
-        ImGui.Text("Progress: " + Achievements.Progress + " / 20000");
+        ImGui.Text("Progress: " + Achievements.Progress + " / 30000");
         if (Achievements.Progress == 0)
             ImGui.Text("Damn it will take ages. Trust me");
         else if (overallTimeAverage == 0)
@@ -204,7 +204,7 @@ public class MainWindow : Window
         else
         {
             ImGui.Text(
-                $"You will need at least {FormatRemaining((20000 - Achievements.Progress) * overallTimeAverage)}\nof farming to complete the achievement.");
+                $"You will need at least {FormatRemaining((30000 - Achievements.Progress) * overallTimeAverage)}\nof farming to complete the achievement.");
         }
 
         if (HoardService.HoardModeError != string.Empty)
