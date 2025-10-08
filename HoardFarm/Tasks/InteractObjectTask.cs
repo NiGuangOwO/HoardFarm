@@ -9,7 +9,7 @@ public class InteractObjectTask(uint dataId) : BaseTask()
 {
     public override unsafe bool? Run()
     {
-        if (ObjectTable.TryGetFirst(e => e.DataId == dataId, out var obj))
+        if (ObjectTable.TryGetFirst(e => e.BaseId == dataId, out var obj))
         {
             if (TargetSystem.Instance()->Target == (GameObject*)obj.Address)
             {

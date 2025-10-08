@@ -89,14 +89,14 @@ public static class Utils
     public static unsafe AtkUnitBase* FindSelectYesNo(uint rowId)
     {
         var s = Svc.Data.GetExcelSheet<Addon>().GetRow(rowId).Text
-                   .ToDalamudString().ExtractText();
+                   .ToDalamudString().GetText();
         for (var i = 1; i < 100; i++)
             try
             {
                 if (TryGetAddonByName<AtkUnitBase>("SelectYesno", out var addon) && IsAddonReady(addon))
                 {
                     var textNode = addon->UldManager.NodeList[15]->GetAsAtkTextNode();
-                    var text = MemoryHelper.ReadSeString(&textNode->NodeText).ExtractText().Replace(" ", "");
+                    var text = MemoryHelper.ReadSeString(&textNode->NodeText).GetText().Replace(" ", "");
                     if (text.EqualsAny(s) || text.ContainsAny(s)) return addon;
                     {
                         return addon;
@@ -115,7 +115,7 @@ public static class Utils
 
     public static unsafe bool KyuseiInteractable()
     {
-        if (ObjectTable.TryGetFirst(e => e.DataId == KyuseiDataId, out var npc))
+        if (ObjectTable.TryGetFirst(e => e.BaseId == KyuseiDataId, out var npc))
             return npc.Position.Distance(Player.Position) < 7f;
         return false;
     }

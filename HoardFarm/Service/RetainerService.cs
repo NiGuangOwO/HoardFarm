@@ -104,7 +104,7 @@ public class RetainerService : IDisposable
                 return;
             }
 
-            if (ObjectTable.TryGetFirst(gameObject => gameObject.DataId == RetainerBellDataId, out var bell))
+            if (ObjectTable.TryGetFirst(gameObject => gameObject.BaseId == RetainerBellDataId, out var bell))
             {
                 if (bell.Position.Distance(Player.Position) > 3)
                 {

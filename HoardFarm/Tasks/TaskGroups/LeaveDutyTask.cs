@@ -71,7 +71,7 @@ public class LeaveDutyTask : IBaseTaskGroup
     {
         if (!InRubySea || !Player.Interactable || !NotBusy()) return false;
         
-        if (ObjectTable.TryGetFirst(e => e.DataId == KyuseiDataId, out var npc))
+        if (ObjectTable.TryGetFirst(e => e.BaseId == KyuseiDataId, out var npc))
         {
             if (TargetSystem.Instance()->Target == (GameObject*)npc.Address)
             {

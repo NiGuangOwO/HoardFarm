@@ -48,9 +48,9 @@ public class HoardFarmService : IDisposable
 
     public HoardFarmService()
     {
-        hoardFoundMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7274).Text.ToDalamudString().ExtractText();
-        senseHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7272).Text.ToDalamudString().ExtractText();
-        noHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7273).Text.ToDalamudString().ExtractText();
+        hoardFoundMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7274).Text.ToDalamudString().GetText();
+        senseHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7272).Text.ToDalamudString().GetText();
+        noHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7273).Text.ToDalamudString().GetText();
         
         ClientState.TerritoryChanged += OnMapChange;
         
@@ -345,7 +345,7 @@ public class HoardFarmService : IDisposable
     private void UpdateObjectPositions()
     {
         foreach (var gameObject in ObjectTable)
-            objectPositions.TryAdd(gameObject.EntityId, new MapObject(gameObject.EntityId, gameObject.DataId, gameObject.Position));
+            objectPositions.TryAdd(gameObject.EntityId, new MapObject(gameObject.EntityId, gameObject.BaseId, gameObject.Position));
     }
 
     private bool CheckRetainer()
@@ -394,7 +394,7 @@ public class HoardFarmService : IDisposable
     private void FindHoardPosition()
     {
         if (hoardPosition == Vector3.Zero && 
-            ObjectTable.TryGetFirst(gameObject => gameObject.DataId == AccursedHoardId, out var hoard))
+            ObjectTable.TryGetFirst(gameObject => gameObject.BaseId == AccursedHoardId, out var hoard))
         {
             hoardPosition = hoard.Position;
         }
