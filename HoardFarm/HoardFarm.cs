@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using AutoRetainerAPI;
 using Dalamud.Game;
@@ -8,6 +9,7 @@ using Dalamud.Plugin.Services;
 using ECommons;
 using ECommons.Automation.LegacyTaskManager;
 using ECommons.Reflection;
+using HoardFarm.Data;
 using HoardFarm.IPC;
 using HoardFarm.Model;
 using HoardFarm.Service;
@@ -41,6 +43,11 @@ public sealed class HoardFarm : IDalamudPlugin
         });
 
         Config = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        if (Config.UniqueId == null)
+        {
+            Config.UniqueId = Guid.NewGuid().ToString();
+            Config.Save();
+        }
 
         mainWindow = new MainWindow();
         configWindow = new ConfigWindow();
@@ -68,23 +75,24 @@ public sealed class HoardFarm : IDalamudPlugin
         Framework.Update += FrameworkUpdate;
 
         PluginService.TaskManager = new TaskManager();
-
-
-        EzCmd.Add("/hoardfarm", (_, args) => OnCommand(args),
-                  "Opens the Hoard Farm window.\n" +
-                  "/hoardfarm config | c → Open the config window.\n" +
-                  "/hoardfarm enable | e → Enable farming mode.\n" +
-                  "/hoardfarm disable | d → Disable farming mode.\n" +
-                  "/hoardfarm toggle | t → Toggle farming mode.\n"
-        );
-
-        CultureInfo.DefaultThreadCurrentUICulture = ClientState.ClientLanguage switch
+        
+        if (Config.Language == "")
         {
-            ClientLanguage.French => CultureInfo.GetCultureInfo("fr"),
-            ClientLanguage.German => CultureInfo.GetCultureInfo("de"),
-            ClientLanguage.Japanese => CultureInfo.GetCultureInfo("ja"),
-            _ => CultureInfo.GetCultureInfo("en")
-        };
+            CultureInfo.DefaultThreadCurrentUICulture = ClientState.ClientLanguage switch
+            {
+                ClientLanguage.French => CultureInfo.GetCultureInfo("fr"),
+                ClientLanguage.German => CultureInfo.GetCultureInfo("de"),
+                ClientLanguage.Japanese => CultureInfo.GetCultureInfo("ja"),
+                _ => CultureInfo.GetCultureInfo("en")
+            };
+        }
+        else
+        {
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo(Config.Language);
+        }
+
+
+        EzCmd.Add("/hoardfarm", (_, args) => OnCommand(args), Strings.HoardFarm_CommandHelp);
     }
 
     public void Dispose()

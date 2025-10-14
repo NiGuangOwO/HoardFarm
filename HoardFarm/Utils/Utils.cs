@@ -18,7 +18,6 @@ namespace HoardFarm.Utils;
 
 public static class Utils
 {
-    public static readonly Version MinAutoRetainerVersion = new(4, 2, 6, 3);
     public static float SprintCD => Player.Status.FirstOrDefault(s => s.StatusId == 50)?.RemainingTime ?? 0;
 
     public static bool Concealment =>
@@ -145,9 +144,4 @@ public static class Utils
         return false;
     }
 
-    public static bool AutoRetainerVersionHighEnough()
-    {
-        return Svc.PluginInterface.InstalledPlugins.FirstOrDefault(x => x.IsLoaded && x.InternalName == "AutoRetainer")
-                  ?.Version >= MinAutoRetainerVersion;
-    }
 }

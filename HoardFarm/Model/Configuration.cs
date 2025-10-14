@@ -17,9 +17,17 @@ public class Configuration : IPluginConfiguration
     public int OverallTime;
     public bool ShowOverlay = true;
     public bool ParanoidMode;
+    public int MinWaitTime = 3;
+    public int MaxWaitTime = 6;
     
     public bool DoRetainers;
     public int RetainerMode = 1;
+    
+    public string Language { get; set; } = "";
+    
+    public string? UniqueId { get; set; }
+    
+    public bool DisableStatisticCollection = false;
 
     public void Save()
     {

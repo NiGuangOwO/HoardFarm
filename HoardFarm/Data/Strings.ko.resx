@@ -1,0 +1,41 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ConfigWindow_Language" xml:space="preserve">
+        <value>언어:</value>
+    </data>
+    <data name="ConfigWindow_Language_de" xml:space="preserve">
+        <value>독일어</value>
+    </data>
+    <data name="ConfigWindow_Language_default" xml:space="preserve">
+        <value>클라이언트 언어</value>
+    </data>
+    <data name="ConfigWindow_Language_en" xml:space="preserve">
+        <value>영어</value>
+    </data>
+    <data name="ConfigWindow_Language_fr" xml:space="preserve">
+        <value>프랑스어</value>
+    </data>
+    <data name="ConfigWindow_Language_ja" xml:space="preserve">
+        <value>일본어</value>
+    </data>
+    <data name="ConfigWindow_Language_ko" xml:space="preserve">
+        <value>한국어</value>
+    </data>
+    <data name="ConfigWindow_Language_zh" xml:space="preserve">
+        <value>중국어</value>
+    </data>
+    <data name="MainWindow_Title" xml:space="preserve">
+        <value>HoardFarm {0}</value>
+    </data>
+</root>

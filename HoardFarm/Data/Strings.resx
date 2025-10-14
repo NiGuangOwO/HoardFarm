@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ConfigWindow_Title" xml:space="preserve">
+        <value>HoardFarm Config</value>
+    </data>
+    <data name="ConfigWindow_GreetingText" xml:space="preserve">
+        <value>Actually no really much to configure here.</value>
+    </data>
+    <data name="ConfigWindow_SupportMe" xml:space="preserve">
+        <value>Wanna support me? Buy me a coffee!</value>
+    </data>
+    <data name="ConfigWindow_SupportKofi" xml:space="preserve">
+        <value>Support on Ko-fi</value>
+    </data>
+    <data name="ConfigWindow_ResetStatistics" xml:space="preserve">
+        <value>Reset local statistics</value>
+    </data>
+    <data name="ConfigWindow_OpenHoardfarmOverlay" xml:space="preserve">
+        <value>Show "Open Hoardfarm"-Overlay</value>
+    </data>
+    <data name="ConfigWindow_SlowMode" xml:space="preserve">
+        <value>Slower mode</value>
+    </data>
+    <data name="ConfigWindow_SlowMode_Help" xml:space="preserve">
+        <value>Slow mode will wait some seconds before requeue again.
+Not really necessary, but makes some people feel better.</value>
+    </data>
+    <data name="DeepDungeonMenuOverlay_OpenHoardfarm" xml:space="preserve">
+        <value>Open Hoardfarm</value>
+    </data>
+    <data name="MainWindow_Title" xml:space="preserve">
+        <value>HoardFarm {0}</value>
+    </data>
+    <data name="MainWindow_OpenConfig" xml:space="preserve">
+        <value>Open Config</value>
+    </data>
+    <data name="MainWindow_OpenHelp" xml:space="preserve">
+        <value>Open Help</value>
+    </data>
+    <data name="MainWindow_SupportMe" xml:space="preserve">
+        <value>Support me ♥</value>
+    </data>
+    <data name="MainWindow_EnableHoardFarmMode" xml:space="preserve">
+        <value>Enable HoardFarm Mode</value>
+    </data>
+    <data name="MainWindow_vnavmeshRequired" xml:space="preserve">
+        <value>This features requires "vnavmesh" to be installed.</value>
+    </data>
+    <data name="MainWindow_StopAfter" xml:space="preserve">
+        <value>Stop After:</value>
+    </data>
+    <data name="MainWindow_StopAfter_Runs" xml:space="preserve">
+        <value>Runs</value>
+    </data>
+    <data name="MainWindow_StopAfter_Hoards" xml:space="preserve">
+        <value>Found Hoards</value>
+    </data>
+    <data name="MainWindow_StopAfter_Minutes" xml:space="preserve">
+        <value>Minutes</value>
+    </data>
+    <data name="MainWindow_Savegame" xml:space="preserve">
+        <value>Savegame:</value>
+    </data>
+    <data name="MainWindow_Savegame_1" xml:space="preserve">
+        <value>Savegame 1</value>
+    </data>
+    <data name="MainWindow_Savegame_2" xml:space="preserve">
+        <value>Savegame 2</value>
+    </data>
+    <data name="MainWindow_FarmMode" xml:space="preserve">
+        <value>Farm Mode:</value>
+    </data>
+    <data name="MainWindow_FarmMode_Efficiency" xml:space="preserve">
+        <value>Efficiency</value>
+    </data>
+    <data name="MainWindow_FarmMode_Efficiency_Help" xml:space="preserve">
+        <value>Efficiency mode will search and try to find every hoard.
+&gt;20% of the hoards are unreachable from start.
+It will take some seconds to find it.
+This mode is still recommended.</value>
+    </data>
+    <data name="MainWindow_FarmMode_Safety" xml:space="preserve">
+        <value>Safety</value>
+    </data>
+    <data name="MainWindow_FarmMode_Safety_Help" xml:space="preserve">
+        <value>Safety mode will NOT search for hoards.
+It instantly leaves if the hoard is unreachable. 
+Safer and faster runs but you will miss a lot of hoards.
+It will take longer overall.</value>
+    </data>
+    <data name="MainWindow_Statistics" xml:space="preserve">
+        <value>Statistics:</value>
+    </data>
+    <data name="MainWindow_Statistics_CurrentSession" xml:space="preserve">
+        <value>Current Session</value>
+    </data>
+    <data name="MainWindow_Statistics_Found" xml:space="preserve">
+        <value>Found: {0}   ({1:0.##} %)</value>
+    </data>
+    <data name="MainWindow_Statistics_Runs" xml:space="preserve">
+        <value>Runs: {0}</value>
+    </data>
+    <data name="MainWindow_TimeWithAverage" xml:space="preserve">
+        <value>Time: {0}   (Ø {1})</value>
+    </data>
+    <data name="MainWindow_Time" xml:space="preserve">
+        <value>Time: {0}</value>
+    </data>
+    <data name="MainWindow_Overall" xml:space="preserve">
+        <value>Overall:</value>
+    </data>
+    <data name="MainWindow_Progress" xml:space="preserve">
+        <value>Progress: {0} / {1}</value>
+    </data>
+    <data name="MainWindow_ProgressZero" xml:space="preserve">
+        <value>Damn it will take ages. Trust me</value>
+    </data>
+    <data name="MainWindow_ProgressNoTime" xml:space="preserve">
+        <value>Suffer mode. Unable to calculate the remaining time.</value>
+    </data>
+    <data name="MainWindow_RemainingTime" xml:space="preserve">
+        <value>You will need at least {0} of farming to complete the achievement.</value>
+    </data>
+    <data name="MainWindow_RemainingTimeDays" xml:space="preserve">
+        <value>You will need at least {0} Days and {1} of farming to complete the achievement.</value>
+    </data>
+    <data name="MainWindow_UnableToRun" xml:space="preserve">
+        <value>Unable to run:</value>
+    </data>
+    <data name="MainWindow_DoRetainers" xml:space="preserve">
+        <value>Do retainers:</value>
+    </data>
+    <data name="MainWindow_DoRetainers_Port" xml:space="preserve">
+        <value>Ports to Limsa Lominsa and runs retainers between runs if done.</value>
+    </data>
+    <data name="MainWindow_DoRetainers_WrongWorld" xml:space="preserve">
+        <value>Please check the current world name or Inventory slot.</value>
+    </data>
+    <data name="MainWindow_DoRetainers_AutoretainerNeeded" xml:space="preserve">
+        <value>This features requires AutoRetainer to be installed and configured.</value>
+    </data>
+    <data name="MainWindow_DoRetainers_AnyDone" xml:space="preserve">
+        <value>If ANY Retainer is done</value>
+    </data>
+    <data name="MainWindow_DoRetainers_AllDone" xml:space="preserve">
+        <value>If ALL Retainer are done</value>
+    </data>
+    <data name="HoardFarm_CommandHelp" xml:space="preserve">
+        <value>Opens the Hoard Farm window.
+/hoardfarm config | c → Open the config window.
+/hoardfarm enable | e → Enable farming mode.
+/hoardfarm disable | d → Disable farming mode.
+/hoardfarm toggle | t → Toggle farming mode.
+</value>
+    </data>
+    <data name="HoardFarm_Status_Running" xml:space="preserve">
+        <value>Running</value>
+    </data>
+    <data name="HoardFarm_Status_Searching" xml:space="preserve">
+        <value>Searching</value>
+    </data>
+    <data name="HoardFarm_Status_Unreachable" xml:space="preserve">
+        <value>Unreachable</value>
+    </data>
+    <data name="HoardFarm_Status_SearchingObject" xml:space="preserve">
+        <value>Searching {0}</value>
+    </data>
+    <data name="HoardFarm_Status_RetainerRunning" xml:space="preserve">
+        <value>Retainer Running</value>
+    </data>
+    <data name="HoardFarm_Status_WaitingNavmesh" xml:space="preserve">
+        <value>Waiting for vnavmesh</value>
+    </data>
+    <data name="HoardFarm_Status_Error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="HoardFarm_Status_Error_Unprepared" xml:space="preserve">
+        <value>Please prepare before starting.
+Floor One is not supported.</value>
+    </data>
+    <data name="HoardFarm_Status_MoveToHoH" xml:space="preserve">
+        <value>Moving to HoH</value>
+    </data>
+    <data name="HoardFarm_Status_Finished" xml:space="preserve">
+        <value>Finished</value>
+    </data>
+    <data name="HoardFarm_Status_EnteringHoH" xml:space="preserve">
+        <value>Entering HoH</value>
+    </data>
+    <data name="HoardFarm_Status_Error_MinimalSetup" xml:space="preserve">
+        <value>Please prepare before starting.
+You need at least one Intuition Pomander
+and one Concealment.</value>
+    </data>
+    <data name="HoardFarm_Status_MoveToHoard" xml:space="preserve">
+        <value>Move to Hoard</value>
+    </data>
+    <data name="HoardFarm_Status_Timeout" xml:space="preserve">
+        <value>Timeout</value>
+    </data>
+    <data name="HoardFarm_Status_PlayerDied" xml:space="preserve">
+        <value>Player died</value>
+    </data>
+    <data name="HoardFarm_Status_Waiting" xml:space="preserve">
+        <value>Waiting</value>
+    </data>
+    <data name="HoardFarm_Status_HoardFound" xml:space="preserve">
+        <value>Hoard Found</value>
+    </data>
+    <data name="HoardFarm_Status_NoHoard" xml:space="preserve">
+        <value>No Hoard</value>
+    </data>
+    <data name="HoardFarm_Status_Done" xml:space="preserve">
+        <value>Done</value>
+    </data>
+    <data name="HoardFarm_Status_Leaving" xml:space="preserve">
+        <value>Leaving</value>
+    </data>
+    <data name="ConfigWindow_WaitBetween" xml:space="preserve">
+        <value>Wait between:</value>
+    </data>
+    <data name="ConfigWindow_Seconds" xml:space="preserve">
+        <value>%d seconds</value>
+    </data>
+    <data name="ConfigWindow_And" xml:space="preserve">
+        <value>and</value>
+    </data>
+    <data name="ConfigWindow_Language" xml:space="preserve">
+        <value>Language:</value>
+    </data>
+    <data name="ConfigWindow_Language_de" xml:space="preserve">
+        <value>German</value>
+    </data>
+    <data name="ConfigWindow_Language_default" xml:space="preserve">
+        <value>Client-Language</value>
+    </data>
+    <data name="ConfigWindow_Language_en" xml:space="preserve">
+        <value>English</value>
+    </data>
+    <data name="ConfigWindow_Language_fr" xml:space="preserve">
+        <value>French</value>
+    </data>
+    <data name="ConfigWindow_Language_ja" xml:space="preserve">
+        <value>Japanese</value>
+    </data>
+    <data name="ConfigWindow_Language_ko" xml:space="preserve">
+        <value>Korean</value>
+    </data>
+    <data name="ConfigWindow_Language_zh" xml:space="preserve">
+        <value>Chinese</value>
+    </data>
+    <data name="ConfigWindow_DisableStatisticGathering" xml:space="preserve">
+        <value>Disable statistic gathering</value>
+    </data>
+    <data name="ConfigWindow_DisableStatisticGathering_Help" xml:space="preserve">
+        <value>Disables global gathering of runtimes and found hoards.
+Purely used to build a accurate global statistic.
+Only sends time of a run, if a hoard is found and the travel time to hoard.
+Character, timestamp or any other identifying info will NEVER send!</value>
+    </data>
+</root>

@@ -2,6 +2,7 @@
 using Dalamud.Interface.Windowing;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using Dalamud.Bindings.ImGui;
+using HoardFarm.Data;
 
 namespace HoardFarm.Windows;
 
@@ -35,7 +36,7 @@ public class DeepDungeonMenuOverlay : Window
     
     public override void Draw()
     {
-        if (ImGui.Button("Open Hoardfarm"))
+        if (ImGui.Button(Strings.DeepDungeonMenuOverlay_OpenHoardfarm))
         {
             P.ShowMainWindow();
         }
