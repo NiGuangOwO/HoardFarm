@@ -2,6 +2,9 @@
 
 public class CollectedData
 {
+    private uint Version => 1;
+    
+    public string Sender { get; set; }
     public double Runtime { get; set; }
     public bool HoardFound { get; set; }
     public ushort TerritoryTyp { get; set; }

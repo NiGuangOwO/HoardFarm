@@ -474,6 +474,7 @@ public class HoardFarmService : IDisposable
         {
             var data = new CollectedData
             {
+                Sender = Config.UniqueId!,
                 Runtime = (DateTime.Now - timingStart.Value).TotalMilliseconds,
                 TerritoryTyp = currentTerritoryType!.Value,
                 SafetyMode = Config.HoardFarmMode == 1
