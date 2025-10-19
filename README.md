@@ -8,7 +8,7 @@
 [![image](https://discordapp.com/api/guilds/1001823907193552978/embed.png?style=banner2)](https://discord.gg/Zzrcc8kmvy)
 
 ### Want to help with localization?
-https://crowdin.com/project/necrolens
+https://crowdin.com/project/hoardfarm
 
 # Hoard Farm
 ```
