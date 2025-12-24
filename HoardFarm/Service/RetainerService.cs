@@ -98,7 +98,7 @@ public class RetainerService : IDisposable
 
         if (!TaskManager.IsBusy && Running && !AutoRetainerRunning())
         {
-            if (Player.Territory != LimsaMapId)
+            if (Player.Territory.Value.RowId != LimsaMapId)
             {
                 Enqueue(new TeleportTask(LimsaAetherytId, LimsaMapId), "Teleport to Limsa");
                 return;
@@ -215,7 +215,7 @@ public class RetainerService : IDisposable
 
     public static bool CheckRetainersDone(bool all = true)
     {
-        var data = RetainerApi.GetOfflineCharacterData(ClientState.LocalContentId).RetainerData;
+        var data = RetainerApi.GetOfflineCharacterData(Svc.PlayerState.ContentId).RetainerData;
         return all ? data.All(e => CheckIsDone(e.VentureEndsAt)) : data.Any(e => CheckIsDone(e.VentureEndsAt));
     }
     
@@ -237,8 +237,8 @@ public class RetainerService : IDisposable
     public bool CanRunRetainer()
     {
         return autoRetainerIcp.GetInventoryFreeSlotCount() > 4 && 
-               Svc.ClientState.LocalPlayer != null && 
-               Svc.ClientState.LocalPlayer.HomeWorld.RowId == Svc.ClientState.LocalPlayer.CurrentWorld.RowId;
+               Svc.Objects.LocalPlayer != null && 
+               Svc.Objects.LocalPlayer.HomeWorld.RowId == Svc.Objects.LocalPlayer.CurrentWorld.RowId;
     }
 
 }

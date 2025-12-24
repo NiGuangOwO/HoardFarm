@@ -23,8 +23,8 @@ public static class Utils
     public static bool Concealment =>
         (Player.Status.FirstOrDefault(s => s.StatusId == VanishStatusId)?.RemainingTime ?? 0) > 0;
 
-    public static bool InHoH => Player.Territory == HoHMapId11 || Player.Territory == HoHMapId21;
-    public static bool InRubySea => Player.Territory == RubySeaMapId;
+    public static bool InHoH => Player.Territory.Value.RowId == HoHMapId11 || Player.Territory.Value.RowId == HoHMapId21;
+    public static bool InRubySea => Player.Territory.Value.RowId == RubySeaMapId;
 
     public static unsafe bool IsMoving() => AgentMap.Instance()->IsPlayerMoving;
 
@@ -47,7 +47,7 @@ public static class Utils
             target->BaseId == KyuseiDataId) occupied = false;
 
         return Player.Available
-               && Player.Object.CastActionId == 0
+               && Player.Object?.CastActionId == 0
                && !occupied
                && !Svc.Condition[ConditionFlag.Jumping]
                && Player.Object.IsTargetable;

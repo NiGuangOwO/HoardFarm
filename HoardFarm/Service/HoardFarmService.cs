@@ -209,7 +209,7 @@ public class HoardFarmService : IDisposable
                 return;
             }
 
-            if (Player.Territory == HoHMapId1)
+            if (Player.Territory.Value.RowId == HoHMapId1)
             {
                 Error(Strings.HoardFarm_Status_Error_Unprepared);
                 return;
@@ -277,7 +277,7 @@ public class HoardFarmService : IDisposable
                                 // {
                                 //     Enqueue(new UsePomanderTask(Pomander.Concealment, false), "Use Concealment");
                                 // }
-                                movementStart = DateTime.Now;
+                                movementStart ??= DateTime.Now;
                                 Enqueue(new PathfindTask(hoardPosition, true, 1.5f), 60 * 1000, "Move to Hoard");
                                 movingToHoard = true;
                                 HoardModeStatus = Strings.HoardFarm_Status_MoveToHoard;
@@ -514,6 +514,8 @@ public class HoardFarmService : IDisposable
         timingStart = null;
         lastHoardFound = false;
         lastHoardCollected = false;
+        movementStart = null;
+        movementEnd = null;
     }
 
     private record MapObject(uint ObjectId, uint DataId, Vector3 Position);

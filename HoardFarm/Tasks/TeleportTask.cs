@@ -11,14 +11,14 @@ public class TeleportTask(uint aetherytId, uint targetTerritoryId) : BaseTask(15
 
     public override unsafe bool? Run()
     {
-        if (!teleportUsed && Player.Territory != targetTerritoryId 
+        if (!teleportUsed && Player.Territory.Value.RowId != targetTerritoryId 
                           && ActionManager.Instance()->GetActionStatus(ActionType.GeneralAction, 7) == 0)
         {
             Telepo.Instance()->Teleport(aetherytId, 0);
             teleportUsed = true;
         }
 
-        return Player.Territory == targetTerritoryId && Player.Interactable && NotBusy();
+        return Player.Territory.Value.RowId == targetTerritoryId && Player.Interactable && NotBusy();
     }
 
 }
