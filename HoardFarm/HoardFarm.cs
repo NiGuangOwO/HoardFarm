@@ -1,6 +1,3 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using AutoRetainerAPI;
 using Dalamud.Game;
 using Dalamud.Interface.Windowing;
@@ -14,6 +11,9 @@ using HoardFarm.IPC;
 using HoardFarm.Model;
 using HoardFarm.Service;
 using HoardFarm.Windows;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace HoardFarm;
 
@@ -29,9 +29,17 @@ public sealed class HoardFarm : IDalamudPlugin
     private readonly MainWindow mainWindow;
     private readonly RetainerService retainerService;
     public readonly WindowSystem WindowSystem = new("HoardFarm");
+    private bool isDev;
 
-    public HoardFarm(IDalamudPluginInterface? pluginInterface)
+    public HoardFarm(IDalamudPluginInterface pluginInterface)
     {
+#if !DEBUG
+        if (pluginInterface.IsDev || !pluginInterface.SourceRepository.Contains("NiGuangOwO/DalamudPlugins"))
+        {
+            isDev = true;
+            return;
+        }
+#endif
         pluginInterface?.Create<PluginService>();
         P = this;
 
@@ -75,7 +83,7 @@ public sealed class HoardFarm : IDalamudPlugin
         Framework.Update += FrameworkUpdate;
 
         PluginService.TaskManager = new TaskManager();
-        
+
         if (Config.Language == "")
         {
             CultureInfo.DefaultThreadCurrentUICulture = ClientState.ClientLanguage switch
@@ -83,6 +91,7 @@ public sealed class HoardFarm : IDalamudPlugin
                 ClientLanguage.French => CultureInfo.GetCultureInfo("fr"),
                 ClientLanguage.German => CultureInfo.GetCultureInfo("de"),
                 ClientLanguage.Japanese => CultureInfo.GetCultureInfo("ja"),
+                ClientLanguage.ChineseSimplified => CultureInfo.GetCultureInfo("zh"),
                 _ => CultureInfo.GetCultureInfo("en")
             };
         }
@@ -97,6 +106,9 @@ public sealed class HoardFarm : IDalamudPlugin
 
     public void Dispose()
     {
+        if (isDev)
+            return;
+
         WindowSystem.RemoveAllWindows();
         hoardFarmService.Dispose();
 
@@ -134,7 +146,8 @@ public sealed class HoardFarm : IDalamudPlugin
                 return;
             case "d":
             case "disable":
-                if (HoardService.HoardMode) HoardService.FinishRun = true;
+                if (HoardService.HoardMode)
+                    HoardService.FinishRun = true;
                 return;
             case "t":
             case "toggle":

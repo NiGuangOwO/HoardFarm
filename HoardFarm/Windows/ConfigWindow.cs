@@ -1,12 +1,12 @@
-﻿using System;
+using Dalamud.Bindings.ImGui;
+using Dalamud.Game;
+using Dalamud.Interface;
+using Dalamud.Interface.Windowing;
+using HoardFarm.Data;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using Dalamud.Interface;
-using Dalamud.Interface.Windowing;
-using Dalamud.Bindings.ImGui;
-using Dalamud.Game;
-using HoardFarm.Data;
 
 namespace HoardFarm.Windows;
 
@@ -30,7 +30,7 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
         ImGui.PopStyleColor(3);
         if (ImGui.Button("Want to help with localization?"))
             Process.Start(new ProcessStartInfo
-                              { FileName = "https://crowdin.com/project/hoardfarm", UseShellExecute = true });
+            { FileName = "https://crowdin.com/project/hoardfarm", UseShellExecute = true });
         ImGui.Spacing();
         ImGui.Separator();
         if (ImGui.Button(Strings.ConfigWindow_ResetStatistics))
@@ -40,11 +40,11 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
             Config.OverallTime = 0;
             Config.Save();
         }
-        
+
         ImGui.Text(Strings.ConfigWindow_Language);
         ImGui.SameLine();
         ImGui.SetNextItemWidth(150);
-        var languages = GetLanguages();  
+        var languages = GetLanguages();
         var lang = languages.Find(pair => pair.Key == Config.Language).Value;
         if (ImGui.BeginCombo("##language", lang))
         {
@@ -62,6 +62,7 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
                             ClientLanguage.French => CultureInfo.GetCultureInfo("fr"),
                             ClientLanguage.German => CultureInfo.GetCultureInfo("de"),
                             ClientLanguage.Japanese => CultureInfo.GetCultureInfo("ja"),
+                            ClientLanguage.ChineseSimplified => CultureInfo.GetCultureInfo("zh"),
                             _ => CultureInfo.GetCultureInfo("en")
                         };
                     }
@@ -73,12 +74,12 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
             }
             ImGui.EndCombo();
         }
-        
+
         if (ImGui.Checkbox(Strings.ConfigWindow_OpenHoardfarmOverlay, ref Config.ShowOverlay))
         {
             Config.Save();
         }
-        
+
         if (ImGui.Checkbox(Strings.ConfigWindow_DisableStatisticGathering, ref Config.DisableStatisticCollection))
         {
             Config.Save();
@@ -91,7 +92,7 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
         {
             ImGui.SetTooltip(Strings.ConfigWindow_DisableStatisticGathering_Help);
         }
-        
+
         if (ImGui.Checkbox(Strings.ConfigWindow_SlowMode, ref Config.ParanoidMode))
         {
             Config.Save();
@@ -112,7 +113,8 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
             ImGui.SetNextItemWidth(80);
             if (ImGui.SliderInt("###MinWait", ref Config.MinWaitTime, 0, 10, Strings.ConfigWindow_Seconds))
             {
-                if (Config.MinWaitTime > Config.MaxWaitTime) Config.MinWaitTime = Config.MaxWaitTime;
+                if (Config.MinWaitTime > Config.MaxWaitTime)
+                    Config.MinWaitTime = Config.MaxWaitTime;
                 Config.Save();
             }
             ImGui.SameLine();
@@ -121,13 +123,14 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
             ImGui.SetNextItemWidth(80);
             if (ImGui.SliderInt("###MaxWait", ref Config.MaxWaitTime, 0, 20, Strings.ConfigWindow_Seconds))
             {
-                if (Config.MaxWaitTime < Config.MinWaitTime) Config.MaxWaitTime = Config.MinWaitTime;
+                if (Config.MaxWaitTime < Config.MinWaitTime)
+                    Config.MaxWaitTime = Config.MinWaitTime;
                 Config.Save();
             }
             ImGui.Unindent();
         }
     }
-    
+
     private List<KeyValuePair<String, String>> GetLanguages()
     {
         return new List<KeyValuePair<string, string>>
@@ -142,6 +145,6 @@ public class ConfigWindow() : Window(Strings.ConfigWindow_Title, ImGuiWindowFlag
                 new KeyValuePair<string, string>("zh", Strings.ConfigWindow_Language_zh),
                 new KeyValuePair<string, string>("ko", Strings.ConfigWindow_Language_ko),
             }
-        };  
+        };
     }
 }

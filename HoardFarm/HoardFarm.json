@@ -1,8 +1,8 @@
 {
-    "Author": "Jukkales",
+    "Author": "Jukkales / NiGuangOwO(适配&汉化)",
     "Name": "HoardFarm",
-    "Punchline": "Become an accursed Hoarder!",
-    "Description": "Plugin to help farming DeepDungeon Hoards (...for you)",
+    "Punchline": "成为一名埋藏的诅咒！",
+    "Description": "帮助您伐木深层迷宫宝藏的插件（...为您）",
     "InternalName": "HoardFarm",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 14,

@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
@@ -20,6 +13,13 @@ using HoardFarm.Tasks;
 using HoardFarm.Tasks.TaskGroups;
 using Lumina.Excel.Sheets;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HoardFarm.Service;
 
@@ -62,8 +62,8 @@ public class HoardFarmService : IDisposable
     public HoardFarmService()
     {
         hoardFoundMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7274).Text.ToDalamudString().GetText();
-        senseHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7272).Text.ToDalamudString().GetText();
-        noHoardMessage = DataManager.GetExcelSheet<LogMessage>().GetRow(7273).Text.ToDalamudString().GetText();
+        senseHoardMessage = "这一层似乎有宝藏……";
+        noHoardMessage = "这一层似乎没有宝藏……";
 
         ClientState.TerritoryChanged += OnMapChange;
 
@@ -99,7 +99,8 @@ public class HoardFarmService : IDisposable
         ChatGui.ChatMessage -= OnChatMessage;
         Reset();
 
-        if (RetainerScv.Running) RetainerScv.FinishProcess();
+        if (RetainerScv.Running)
+            RetainerScv.FinishProcess();
     }
 
     private void EnableFarm()
@@ -359,7 +360,8 @@ public class HoardFarmService : IDisposable
                 }
             }
 
-            if (Svc.Condition[ConditionFlag.Unconscious]) LeaveDuty(Strings.HoardFarm_Status_PlayerDied);
+            if (Svc.Condition[ConditionFlag.Unconscious])
+                LeaveDuty(Strings.HoardFarm_Status_PlayerDied);
         }
     }
 
@@ -385,8 +387,10 @@ public class HoardFarmService : IDisposable
 
     private bool CheckMinimalSetup()
     {
-        if (!CanUsePomander(Pomander.Intuition)) return false;
-        if (CanUsePomander(Pomander.Concealment)) return true;
+        if (!CanUsePomander(Pomander.Intuition))
+            return false;
+        if (CanUsePomander(Pomander.Concealment))
+            return true;
 
         return CanUsePomander(Pomander.Safety) && CanUseMagicite();
     }
@@ -480,8 +484,10 @@ public class HoardFarmService : IDisposable
                 SafetyMode = Config.HoardFarmMode == 1
             };
 
-            if (lastHoardFound.HasValue) data.HoardFound = lastHoardFound.Value;
-            if (lastHoardCollected.HasValue) data.HoardCollected = lastHoardCollected.Value;
+            if (lastHoardFound.HasValue)
+                data.HoardFound = lastHoardFound.Value;
+            if (lastHoardCollected.HasValue)
+                data.HoardCollected = lastHoardCollected.Value;
 
             if (movementStart.HasValue && movementEnd.HasValue)
                 data.MoveTime = (movementEnd.Value - movementStart.Value).TotalMilliseconds;
