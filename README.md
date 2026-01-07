@@ -11,9 +11,7 @@
 https://crowdin.com/project/hoardfarm
 
 # Hoard Farm
-```
-https://puni.sh/api/repository/jukka
-```
+DETECTABLE - DO NOT USE IT ANYMORE
 
 <img src="https://raw.githubusercontent.com/Jukkales/HoardFarm/main/icon.png" width="100" height="100" align="left"> Overwhelmed that you have to find 20000 hoards to get "For the Hoard VI"?
 
